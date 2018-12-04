@@ -16,14 +16,14 @@ module EncryptedId
   end
 
   def self.decrypt(key, id)
-    c = OpenSSL::Cipher::Cipher.new(CIPHER_NAME).decrypt
+    c = OpenSSL::Cipher.new(CIPHER_NAME).decrypt
     c.iv = CIPHER_IV
     c.key = key
     c.update([id].pack('H*')) + c.final
   end
 
   def self.encrypt(key, id)
-    c = OpenSSL::Cipher::Cipher.new(CIPHER_NAME).encrypt
+    c = OpenSSL::Cipher.new(CIPHER_NAME).encrypt
     c.iv = CIPHER_IV
     c.key = key
     (c.update("#{id}") + c.final).unpack('H*')[0]
